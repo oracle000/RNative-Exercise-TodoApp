@@ -75,17 +75,20 @@ class AddTaskDialog extends React.Component{
         };
     }
 
-    enterTask(event) {        
+    enterTask(event) {      
         this.setState({
             taskName: event.nativeEvent.text
         })
     }
 
 
-    addTask() {
-        const {addTask, close} = this.props;
-        addTask(this.state.taskName);
-        close();
+    addTask() {    
+        if (this.state.taskName != null) {            
+            const {addTask, close} = this.props;
+            addTask(this.state.taskName);
+            close();
+        }
+        
     }
 
 
@@ -103,7 +106,7 @@ class AddTaskDialog extends React.Component{
                     <View style={styles.modalContainer}>
                         <View style={styles.titleContainer}>
                             <Text style={styles.addText}>Add Task</Text>
-                            <TouchableHighlight onPress={close} style={{borderRadius: 50, backgroundColor: 'transparent'}}>
+                            <TouchableHighlight onPress={close} underlayColor={'transparent'}>
                                 <Text>                        
                                     <Icon name="times-circle" size={30} color="#6c5f5b" />
                                 </Text>
