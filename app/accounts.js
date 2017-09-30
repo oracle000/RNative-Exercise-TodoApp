@@ -8,6 +8,7 @@ import {Link} from 'react-router-native';
 
 // Component
 import AddTaskDialog from './component/addTaskDialog';
+import EditTaskDialog from './component/editTaskDialog';
 import Task from './task';
 
 const styles = StyleSheet.create({
@@ -81,6 +82,7 @@ class Accounts extends React.Component {
         this.state = {
             loginName : this.props.match.params.id,
             addTaskDialog: false,
+            editTaskDialog: false,
             taskList : [{
                 key : 'Play Piano',
                 isDone : false
@@ -106,6 +108,20 @@ class Accounts extends React.Component {
             addTaskDialog: false
         });
     }
+
+    // open Edit Task Dialog
+    onOpenEditTaskDialog() {
+        this.setState({
+            editTaskDialog: true
+        });
+    }
+    // close Edit Task Dialog
+    onCloseEditTaskDialog() {
+        this.setState({
+            editTaskDialog: false
+        });
+    }
+
 
     // Add Task Function 
     addTodoTask(value) {
@@ -148,6 +164,7 @@ class Accounts extends React.Component {
                     <View style={styles.taskContainer}>
                         <Task 
                             taskList={this.state.taskList}
+                            openEditTaskDialog={this.onOpenEditTaskDialog.bind(this)}
                         />
                     </View>
                 </View>
@@ -157,6 +174,12 @@ class Accounts extends React.Component {
                     open={this.state.addTaskDialog}
                     close={this.onCloseAddTaskDialog.bind(this)}
                     addTask={this.addTodoTask.bind(this)}
+                />
+
+                <EditTaskDialog
+                    open={this.state.editTaskDialog}
+                    close={this.onCloseEditTaskDialog.bind(this)}
+
                 />
 
                
