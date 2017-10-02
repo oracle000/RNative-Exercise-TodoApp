@@ -43,6 +43,10 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: '#caab81',
         padding: 10
+    },
+    taskDone : {
+        fontSize: 20,
+        marginTop: 5
     }
 })
 
@@ -78,6 +82,11 @@ class Task extends React.Component {
         openDeleteTaskDialog(data);
     }
 
+    onClickDoneTaskButton(data) {
+        const {openDoneTaskDialog} = this.props;
+        openDoneTaskDialog(data);
+    }
+
     
 
 
@@ -94,27 +103,47 @@ class Task extends React.Component {
                             {data.key}
                         </Text>
                     </View>
-                    <View style={styles.buttonContainer}>
-                        <Text style={styles.button}>                        
-                            <Icon name="check-circle" size={30} color="#6c5f5b" />
-                        </Text>
-                        <TouchableHighlight 
-                            onPress={this.onClickEditTaskButton.bind(this, data.key)}
-                            style={{borderRadius: 10}}
+
+
+                    {  
+                        data.isDone ?
+                        <View style={styles.buttonContainer}>
+                            <Text style={styles.taskDone}>
+                                Task is Done
+                            </Text>
+                        </View>
+                        
+                          :
+
+                        <View style={styles.buttonContainer}>
+                            <TouchableHighlight
+                                onPress={this.onClickDoneTaskButton.bind(this, data.key)}
+                                style={{borderRadius: 10}}
                             >
-                            <Text style={styles.button}>
-                                <Icon name="pencil" size={30} color="#6c5f5b" />
-                            </Text>
-                        </TouchableHighlight>
-                        <TouchableHighlight
-                            onPress={this.onClickDeleteTaskButton.bind(this, data.key)}
-                            style={{borderRadius: 10}}
-                        >
-                            <Text style={styles.button}>
-                                <Icon name="trash" size={30} color="#6c5f5b" />
-                            </Text>
-                        </TouchableHighlight>
-                    </View>
+                                <Text style={styles.button}>                        
+                                    <Icon name="check-circle" size={30} color="#6c5f5b" />
+                                </Text>
+                            </TouchableHighlight>
+                            <TouchableHighlight 
+                                onPress={this.onClickEditTaskButton.bind(this, data.key)}
+                                style={{borderRadius: 10}}
+                                >
+                                <Text style={styles.button}>
+                                    <Icon name="pencil" size={30} color="#6c5f5b" />
+                                </Text>
+                            </TouchableHighlight>
+                            <TouchableHighlight
+                                onPress={this.onClickDeleteTaskButton.bind(this, data.key)}
+                                style={{borderRadius: 10}}
+                            >
+                                <Text style={styles.button}>
+                                    <Icon name="trash" size={30} color="#6c5f5b" />
+                                </Text>
+                            </TouchableHighlight>
+                        </View>
+
+                    }
+                  
                 </View>
             }
            
