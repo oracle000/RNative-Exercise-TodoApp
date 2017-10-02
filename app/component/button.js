@@ -36,8 +36,7 @@ const styles = StyleSheet.create({
 class ButtonLogin extends React.Component {
     
     constructor(props) {
-        super(props);
-        console.log(this.props);
+        super(props);        
         this.state = {            
             name : null
         }

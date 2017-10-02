@@ -81,8 +81,9 @@ class Accounts extends React.Component {
         super(props)
         this.state = {
             loginName : this.props.match.params.id,
-            addTaskDialog: false,
-            editTaskDialog: false,
+            addTaskDialog : false,
+            editTaskDialog : false,
+            selectedTask : '',
             taskList : [{
                 key : 'Play Piano',
                 isDone : false
@@ -110,15 +111,31 @@ class Accounts extends React.Component {
     }
 
     // open Edit Task Dialog
-    onOpenEditTaskDialog() {
+    onOpenEditTaskDialog(value) {
         this.setState({
-            editTaskDialog: true
+            editTaskDialog : true,
+            selectedTask : value
         });
     }
     // close Edit Task Dialog
     onCloseEditTaskDialog() {
         this.setState({
-            editTaskDialog: false
+            editTaskDialog: false,
+            selectedTask : ''
+        });
+    }
+
+    // save Edit Task Name
+    onSaveSelectedEditTask(task) {
+        var myObj = this.state.taskList;
+        myObj.map((x, y) => {
+            if (x.key == this.state.selectedTask ) {
+                x.key = task;
+            }
+        });
+
+        this.setState({
+            taskList : myObj
         });
     }
 
@@ -179,6 +196,8 @@ class Accounts extends React.Component {
                 <EditTaskDialog
                     open={this.state.editTaskDialog}
                     close={this.onCloseEditTaskDialog.bind(this)}
+                    task={this.state.selectedTask}
+                    editTask={this.onSaveSelectedEditTask.bind(this)}
 
                 />
 

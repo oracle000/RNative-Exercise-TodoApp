@@ -54,7 +54,7 @@ class Task extends React.Component {
         super(props);
 
         const {taskList} =this.props;
-        console.log(taskList);
+    
         this.state = {
             result : ds.cloneWithRows(taskList),
         };
@@ -68,9 +68,9 @@ class Task extends React.Component {
         }
     }
 
-    onClickEditTaskButton() {
+    onClickEditTaskButton(data) {        
         const {openEditTaskDialog} = this.props;
-        openEditTaskDialog();
+        openEditTaskDialog(data);
     }
 
     render() {
@@ -90,7 +90,10 @@ class Task extends React.Component {
                         <Text style={styles.button}>                        
                             <Icon name="check-circle" size={30} color="#6c5f5b" />
                         </Text>
-                        <TouchableHighlight onPress={this.onClickEditTaskButton.bind(this)}>
+                        <TouchableHighlight 
+                            onPress={this.onClickEditTaskButton.bind(this, data.key)}
+                            style={{borderRadius: 10}}
+                            >
                             <Text style={styles.button}>
                                 <Icon name="pencil" size={30} color="#6c5f5b" />
                             </Text>

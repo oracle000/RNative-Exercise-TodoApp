@@ -82,19 +82,16 @@ class editTaskDialog extends React.Component{
     }
 
 
-    addTask() {    
-        if (this.state.taskName != null) {            
-            const {addTask, close} = this.props;
-            addTask(this.state.taskName);
-            close();
-        }
-        
+    saveEditTask() {    
+        const {editTask, close} = this.props;        
+        editTask(this.state.taskName);
+        close();                
     }
 
 
     render() {
 
-        const {open, close } = this.props;
+        const {open, close, task } = this.props;
         return (
             <Modal
                 transparent={true}
@@ -117,10 +114,11 @@ class editTaskDialog extends React.Component{
                                 style={styles.textField}
                                 onSubmitEditing={this.enterTask.bind(this)}
                                 onChangeText={taskName => this.setState({taskName})}
+                                defaultValue={task}
                                 />
                         </View>
                         <View style={styles.buttonContainer}>
-                            <TouchableHighlight onPress={this.addTask.bind(this)} style={{borderRadius: 10}}>                                
+                            <TouchableHighlight onPress={this.saveEditTask.bind(this)} style={{borderRadius: 10}}>                                
                                 <View style={styles.button}>
                                     <Icon name="floppy-o" size={30} color="#6c5f5b" />
                                     <Text style={styles.text}>Save</Text>
