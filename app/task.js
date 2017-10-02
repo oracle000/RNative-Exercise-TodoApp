@@ -73,6 +73,14 @@ class Task extends React.Component {
         openEditTaskDialog(data);
     }
 
+    onClickDeleteTaskButton(data) {
+        const {openDeleteTaskDialog} = this.props;
+        openDeleteTaskDialog(data);
+    }
+
+    
+
+
     render() {
         
         
@@ -98,9 +106,14 @@ class Task extends React.Component {
                                 <Icon name="pencil" size={30} color="#6c5f5b" />
                             </Text>
                         </TouchableHighlight>
-                        <Text style={styles.button}>
-                            <Icon name="trash" size={30} color="#6c5f5b" />
-                        </Text>
+                        <TouchableHighlight
+                            onPress={this.onClickDeleteTaskButton.bind(this, data.key)}
+                            style={{borderRadius: 10}}
+                        >
+                            <Text style={styles.button}>
+                                <Icon name="trash" size={30} color="#6c5f5b" />
+                            </Text>
+                        </TouchableHighlight>
                     </View>
                 </View>
             }

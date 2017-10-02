@@ -9,6 +9,7 @@ import {Link} from 'react-router-native';
 // Component
 import AddTaskDialog from './component/addTaskDialog';
 import EditTaskDialog from './component/editTaskDialog';
+import DeleteTaskDialog from './component/deleteTaskDialog';
 import Task from './task';
 
 const styles = StyleSheet.create({
@@ -83,6 +84,7 @@ class Accounts extends React.Component {
             loginName : this.props.match.params.id,
             addTaskDialog : false,
             editTaskDialog : false,
+            deleteTaskDialog : false,
             selectedTask : '',
             taskList : [{
                 key : 'Play Piano',
@@ -125,6 +127,22 @@ class Accounts extends React.Component {
         });
     }
 
+    // open Delete Task Dialog
+    onOpenDeleteTaskDialog(value) {
+        this.setState({
+            deleteTaskDialog: true,
+            selectedTask : value
+        });
+    }
+    // close Delete Task Dialog
+    onCloseDeleteTaskDialog() {
+        this.setState({
+            deleteTaskDialog: false,
+            selectedTask : ''
+        });
+    }
+
+
     // save Edit Task Name
     onSaveSelectedEditTask(task) {
         var myObj = this.state.taskList;
@@ -146,8 +164,16 @@ class Accounts extends React.Component {
         myObj.push({key: value, isDone: false});
         this.setState({
             taskList: myObj
-        });
-        
+        });      
+    }
+
+    removeTodoTask(task) {    
+        var myObj = this.state.taskList;
+        var index = myObj.findIndex(x => x.key == task);    
+        myObj.splice(index, 1);     
+        this.setState({
+            taskList: myObj
+        });         
     }
 
     render() {
@@ -182,6 +208,7 @@ class Accounts extends React.Component {
                         <Task 
                             taskList={this.state.taskList}
                             openEditTaskDialog={this.onOpenEditTaskDialog.bind(this)}
+                            openDeleteTaskDialog={this.onOpenDeleteTaskDialog.bind(this)}
                         />
                     </View>
                 </View>
@@ -198,6 +225,13 @@ class Accounts extends React.Component {
                     close={this.onCloseEditTaskDialog.bind(this)}
                     task={this.state.selectedTask}
                     editTask={this.onSaveSelectedEditTask.bind(this)}
+                />
+
+                <DeleteTaskDialog
+                    open={this.state.deleteTaskDialog}
+                    close={this.onCloseDeleteTaskDialog.bind(this)}
+                    task={this.state.selectedTask}
+                    removeTask={this.removeTodoTask.bind(this)}
 
                 />
 
