@@ -96,6 +96,7 @@ class Task extends React.Component {
         return (
            <ListView
                 dataSource={this.state.result}
+                enableEmptySections={true}
                 renderRow={(data) => 
                 <View style={styles.taskContainer}>                                   
                     <View style={styles.textContainer}>
